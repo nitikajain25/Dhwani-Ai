@@ -1,12 +1,80 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <title>Dhwani AI - Hero Section</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary": "#00363e",
+              "inverse-primary": "#006877",
+              "surface-container-high": "#212a39",
+              "outline": "#859397",
+              "on-tertiary-fixed-variant": "#653e00",
+              "outline-variant": "#3c494c",
+              "on-secondary-container": "#004a47",
+              "primary-container": "#25d9f5",
+              "secondary-fixed": "#64f8f2",
+              "inverse-on-surface": "#273140",
+              "background": "#0a1422",
+              "on-primary-fixed-variant": "#004e5a",
+              "on-error": "#690005",
+              "error-container": "#93000a",
+              "primary-fixed-dim": "#25d9f5",
+              "on-surface": "#d9e3f7",
+              "surface-bright": "#303a49",
+              "on-error-container": "#ffdad6",
+              "on-background": "#d9e3f7",
+              "on-secondary": "#003735",
+              "surface-container-low": "#121c2a",
+              "tertiary-fixed": "#ffddb7",
+              "tertiary-container": "#ffb95c",
+              "on-tertiary": "#462a00",
+              "tertiary-fixed-dim": "#ffb95c",
+              "on-secondary-fixed-variant": "#00504d",
+              "on-secondary-fixed": "#00201f",
+              "tertiary": "#ffddb7",
+              "on-surface-variant": "#bbc9cd",
+              "secondary-container": "#00c2bc",
+              "surface-dim": "#0a1422",
+              "error": "#ffb4ab",
+              "surface-container-lowest": "#050e1c",
+              "surface-container-highest": "#2c3545",
+              "secondary": "#42ded8",
+              "on-primary-fixed": "#001f25",
+              "primary": "#a2eeff",
+              "secondary-fixed-dim": "#3edbd5",
+              "on-primary-container": "#005b68",
+              "surface-variant": "#2c3545",
+              "surface-container": "#16202f",
+              "on-tertiary-fixed": "#2a1700",
+              "surface-tint": "#25d9f5",
+              "primary-fixed": "#a3eeff",
+              "surface": "#0a1422",
+              "on-tertiary-container": "#744900",
+              "inverse-surface": "#d9e3f7"
+            },
+            spacing: {
+              "margin-desktop": "64px",
+              "container-max": "1440px",
+              "margin-mobile": "20px"
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://db.onlinewebfonts.com/c/5ac3fe7c6abd2f62067f266d89671492?family=HelveticaNowDisplay-Medium" rel="stylesheet" />
+    <link href="https://db.onlinewebfonts.com/c/1aa3377e489837a26d019bba501e779d?family=HelveticaNowDisplayW01-Rg" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;600&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </head>
-  <body>
+  <body class="bg-[#0a1422] text-[#d9e3f7] font-['Hanken_Grotesk',sans-serif] min-h-screen overflow-x-hidden relative">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
