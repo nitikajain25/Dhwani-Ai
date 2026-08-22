@@ -3,23 +3,23 @@ import MainframeHeroWidget from './MainframeHeroWidget';
 
 export default function HeroSection({ heroRef }) {
   return (
-    <section id="hero" ref={heroRef} className="w-full flex items-center justify-center px-6 md:px-16 pt-32 pb-16 min-h-screen relative max-w-[1440px] mx-auto">
-      <div className="flex flex-col lg:flex-row items-center justify-between w-full h-full gap-12 lg:gap-8">
-        {/* LEFT COLUMN (45%) */}
-        <div className="w-full lg:w-[45%] flex flex-col items-start space-y-8 z-10">
+    <section id="hero" ref={heroRef} className="w-full flex items-center justify-center px-6 md:px-16 pt-3 md:pt-4 pb-12 min-h-fit relative max-w-[1440px] mx-auto">
+      <div className="flex flex-col lg:flex-row items-center justify-between w-full h-full gap-12 lg:gap-16 pt-16 md:pt-32">
+        {/* LEFT COLUMN (50%) */}
+        <div className="w-full lg:w-[48%] flex flex-col items-start space-y-3 z-10">
           {/* Badge */}
-          <div className="hero-animate glass-panel px-4 py-2 rounded-full flex items-center space-x-2">
-            <span className="text-[#a2eeff] text-lg">✦</span>
-            <span className="font-['JetBrains_Mono'] text-[#d9e3f7] tracking-wider text-xs md:text-sm">MEET ध्वनि AI</span>
+          <div className="hero-animate glass-panel px-4 py-2 rounded-full flex items-center space-x-2 mt-4 md:mt-6">
+            <span className="text-[#25d9f5] text-lg">✦</span>
+            <span className="font-['Poppins'] font-semibold text-[#d9e3f7] tracking-wider text-xs md:text-sm">MEET ध्वनि AI</span>
           </div>
           {/* Main Heading */}
-          <h1 className="hero-animate font-['Sora'] font-bold text-[40px] sm:text-[48px] md:text-[64px] leading-[1.1] text-[#d9e3f7] tracking-tight text-left">
+          <h1 className="hero-animate font-['Sora'] font-bold text-[32px] sm:text-[40px] md:text-[48px] lg:text-[42px] xl:text-[48px] leading-[1.1] text-[#d9e3f7] tracking-tight text-left">
             Your Voice.<br />
             <span className="text-gradient">Intelligent</span><br />
             Answers.
           </h1>
           {/* Description */}
-          <p className="hero-animate font-['Hanken_Grotesk'] text-[#bbc9cd] max-w-[480px] text-left text-base md:text-lg">
+          <p className="hero-animate font-['Hanken_Grotesk'] text-[#bbc9cd] max-w-[480px] text-left text-sm md:text-base">
             Advanced semantic retrieval meets real-time voice synthesis. Ask complex questions naturally, and experience data-driven answers grounded in verified intelligence.
           </p>
           {/* Process Indicator */}
@@ -65,17 +65,17 @@ export default function HeroSection({ heroRef }) {
           </div>
         </div>
 
-        {/* RIGHT COLUMN (55%): Mainframe Interactive Hero Widget */}
-        <div className="w-full lg:w-[55%] relative flex items-center justify-center z-10">
+        {/* RIGHT COLUMN (50%): Mainframe Interactive Hero Widget */}
+        <div className="w-full lg:w-[48%] relative flex items-center justify-center z-10">
           <MainframeHeroWidget />
         </div>
       </div>
 
       {/* Scroll Down Hint */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 z-20">
-        <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd] tracking-widest">SCROLL TO SPEAK</span>
+      <a href="#voice-interaction" className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer group">
+        <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd] group-hover:text-[#25d9f5] transition-colors tracking-widest">SCROLL TO SPEAK</span>
         <i className="bi bi-arrow-down text-[#25d9f5] text-lg animate-bounce"></i>
-      </div>
+      </a>
     </section>
   );
 }

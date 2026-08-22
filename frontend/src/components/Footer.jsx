@@ -13,9 +13,7 @@ export default function Footer() {
 
         {/* Branding */}
         <div className="flex flex-col items-center space-y-4 mb-12">
-          <span className="font-['Sora'] font-bold text-3xl tracking-tight text-[#a2eeff] glow-text flex items-center gap-2">
-            <i className="bi bi-soundwave text-[#25d9f5]"></i> ध्वनि AI
-          </span>
+          <img src="/logo.png" alt="Dhwani AI Logo" className="h-16 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]" />
           <p className="font-['Hanken_Grotesk'] text-[#bbc9cd]/60 text-center">Voice-powered intelligence, grounded in knowledge.</p>
         </div>
 

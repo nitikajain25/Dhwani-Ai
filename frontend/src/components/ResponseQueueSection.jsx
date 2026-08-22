@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ResponseQueueSection({ queueRef }) {
   return (
-    <section id="response-queue" ref={queueRef} className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden py-24 bg-[#081525]">
+    <section id="response-queue" ref={queueRef} className="relative w-full min-h-fit lg:min-h-screen flex flex-col items-center justify-center overflow-hidden py-12 md:py-24 bg-[#081525]">
       <div className="relative z-10 flex flex-col items-center w-full max-w-5xl mx-auto px-6 space-y-12">
         {/* Header */}
         <div className="flex flex-col items-center text-center space-y-4">

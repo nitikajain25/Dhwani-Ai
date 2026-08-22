@@ -42,7 +42,7 @@ export default function MainframeHeroWidget() {
   const [pillsVisible, setPillsVisible] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const typewriterText = "Glad you stopped in. Good taste tends to find us. Now, what are we building?";
+  const typewriterText = "Welcome to Dhwani AI. Grounded in speech, verified in real-time. What would you like to know?";
   const { displayed, done } = useTypewriter(typewriterText, 38, 600);
 
   // Fade-in action pill buttons 400ms after page load
@@ -104,13 +104,13 @@ export default function MainframeHeroWidget() {
 
   const handleCopyEmail = (e) => {
     e.preventDefault();
-    navigator.clipboard.writeText("hello@mainframe.co");
+    navigator.clipboard.writeText("team@dhwani.ai");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="relative w-full h-[600px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 text-black flex flex-col justify-end pb-8 sm:pb-12 px-6 sm:px-10">
+    <div className="relative w-full h-[440px] lg:h-[480px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 text-black flex flex-col justify-end pb-8 sm:pb-12 px-6 sm:px-10">
       {/* Mouse Scrubbed Video Layer */}
       <video
         ref={videoRef}
@@ -128,8 +128,8 @@ export default function MainframeHeroWidget() {
       <div className="max-w-xl relative z-10 text-left">
         {/* Blurred Intro Label */}
         <div className="pointer-events-none select-none mb-5 sm:mb-6 text-[clamp(18px,4vw,26px)] leading-[1.3] font-normal text-white filter blur-[4px]">
-          Hey there, meet A.R.I.A,<br />
-          Mainframe's Adaptive Response Interface Agent
+          Hey there, meet <span className="font-['Poppins']">ध्वनि AI</span>,<br />
+          Your real-time speech retrieval companion.
         </div>
 
         {/* Typewriter Text */}
@@ -152,18 +152,18 @@ export default function MainframeHeroWidget() {
           }}
         >
           {/* White Pill Buttons */}
-          <button className="inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer">
-            Pitch us an idea
-          </button>
-          <button className="inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer">
-            Come work here
-          </button>
-          <button className="inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer">
-            Send a brief hello
-          </button>
-          <button className="inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer">
-            See how we operate
-          </button>
+          <a href="#voice-interaction" className="inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer no-underline">
+            Try Voice Input
+          </a>
+          <a href="#performance-metrics" className="inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer no-underline">
+            Explore Latency
+          </a>
+          <a href="#response-queue" className="inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer no-underline">
+            View Response Queue
+          </a>
+          <a href="#hero" className="inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer no-underline">
+            HH Goa 2026
+          </a>
 
           {/* Outline Pill Button with Copy Email */}
           <button
@@ -173,7 +173,7 @@ export default function MainframeHeroWidget() {
             <span>
               Reach us:{' '}
               <span className="underline underline-offset-1">
-                {copied ? 'Copied to clipboard!' : 'hello@mainframe.co'}
+                {copied ? 'Copied to clipboard!' : 'team@dhwani.ai'}
               </span>
             </span>
             <svg
