@@ -5,9 +5,11 @@ from typing import List, Optional
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
-from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI(title="Dhawani API")
 
 frontend_url = os.getenv("FRONTEND_URL")
 
