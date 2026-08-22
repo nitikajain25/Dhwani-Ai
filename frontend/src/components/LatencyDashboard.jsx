@@ -16,7 +16,7 @@ export default function LatencyDashboard({ metricsRef }) {
   const displayLabel = activeSegment ? activeSegment.label : "Answer Quality";
 
   return (
-    <section id="performance-metrics" ref={metricsRef} className="relative w-full min-h-fit lg:h-screen lg:max-h-screen flex flex-col items-center justify-center overflow-hidden py-8 md:py-16 bg-[#06111F]">
+    <section id="performance-metrics" ref={metricsRef} className="snap-start snap-always relative w-full min-h-fit lg:h-screen lg:max-h-screen flex flex-col items-center justify-center overflow-hidden py-8 md:py-16 bg-[#06111F]">
       <div className="relative z-10 flex flex-col items-center w-full max-w-5xl mx-auto px-6 space-y-6">
         <div className="flex flex-col items-center text-center space-y-2">
           <span className="font-['JetBrains_Mono'] text-[11px] text-[#25d9f5] tracking-[0.2em]">04 / PERFORMANCE</span>
