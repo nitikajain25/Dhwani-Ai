@@ -7,6 +7,17 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
+from fastapi.middleware.cors import CORSMiddleware
+
+frontend_url = os.getenv("FRONTEND_URL")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[frontend_url] if frontend_url else [],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app = FastAPI(title="Dhawani API")
 
