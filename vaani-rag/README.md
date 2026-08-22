@@ -1,6 +1,6 @@
-# VaaniRAG Offline Ingestion Pipeline
+# DhawaniRAG Offline Ingestion Pipeline
 
-This directory contains the robust, resumable, and benchmarkable offline multilingual data ingestion pipeline for the **VaaniRAG** application. 
+This directory contains the robust, resumable, and benchmarkable offline multilingual data ingestion pipeline for the **DhawaniRAG** application. 
 
 The pipeline extracts Hindi, Marathi, and English passages from the AI4Bharat `MSMARCO-XI` dataset, cleanses and deduplicates them, segments them using pluggable chunking strategies, embeds them locally on a T4 GPU using `BAAI/bge-m3`, validates the vectors, and uploads them to a serverless Pinecone index categorized by language namespace.
 

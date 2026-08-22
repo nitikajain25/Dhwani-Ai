@@ -46,12 +46,18 @@ def test_extraction_alignment_mismatch():
     
     passages = list(extract_passages_from_row(row, 1))
     
-    # Should use minimum length which is 1
-    assert len(passages) == 2 # 1 English, 1 Marathi
-    assert passages[0].language == "en"
-    assert passages[0].text == "Eng1"
-    assert passages[1].language == "mr"
-    assert passages[1].text == "Mr1"
+    # Should use max length, resulting in 2 English and 1 Marathi passage (3 total)
+    assert len(passages) == 3
+    
+    eng_passages = [p for p in passages if p.language == "en"]
+    mr_passages = [p for p in passages if p.language == "mr"]
+    
+    assert len(eng_passages) == 2
+    assert eng_passages[0].text == "Eng1"
+    assert eng_passages[1].text == "Eng2"
+    
+    assert len(mr_passages) == 1
+    assert mr_passages[0].text == "Mr1"
 
 def test_extraction_no_target_lang_match():
     # If target_lang is neither hi nor mr, it should only extract english

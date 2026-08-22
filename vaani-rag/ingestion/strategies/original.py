@@ -23,7 +23,7 @@ def chunk_original(passage: Passage) -> List[Chunk]:
         return chunk_fixed_overlap(passage, chunk_size=4000, chunk_overlap=200)
 
     chunk_hash = hashlib.sha256(text.encode("utf-8")).hexdigest()
-    chunk_id = f"{passage.language}_{chunk_hash}"
+    chunk_id = f"{passage.language}_original_{chunk_hash}"
     
     chunk = Chunk(
         chunk_id=chunk_id,

@@ -73,3 +73,12 @@ class Deduplicator:
             "duplicate_percentage": round(duplicate_percentage, 2)
         }
 
+    def close(self):
+        """Closes the database connection if open."""
+        if self.use_sqlite and hasattr(self, 'conn') and self.conn:
+            try:
+                self.conn.close()
+                logger.info("Closed SQLite deduplicator connection.")
+            except Exception as e:
+                logger.error(f"Error closing SQLite deduplicator: {e}")
+
