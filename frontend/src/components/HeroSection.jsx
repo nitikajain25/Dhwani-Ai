@@ -1,5 +1,6 @@
 import React from 'react';
 import MainframeHeroWidget from './MainframeHeroWidget';
+import EyesComponent from './ui/EyesComponent';
 
 export default function HeroSection({ heroRef }) {
   return (
@@ -7,10 +8,13 @@ export default function HeroSection({ heroRef }) {
       <div className="flex flex-col lg:flex-row items-center justify-between w-full h-full gap-12 lg:gap-16 pt-8 md:pt-20">
         {/* LEFT COLUMN (50%) */}
         <div className="w-full lg:w-[48%] flex flex-col items-start space-y-3 z-10">
-          {/* Badge */}
-          <div className="hero-animate glass-panel px-4 py-2 rounded-full flex items-center space-x-2 mt-4 md:mt-6">
-            <span className="text-[#25d9f5] text-lg">✦</span>
-            <span className="font-['Poppins'] font-semibold text-[#d9e3f7] tracking-wider text-xs md:text-sm">MEET ध्वनि AI</span>
+          {/* Badge & Interactive Eyes */}
+          <div className="hero-animate flex items-center gap-3 mt-4 md:mt-6">
+            <div className="glass-panel px-4 py-2 rounded-full flex items-center space-x-2">
+              <span className="text-[#25d9f5] text-lg">✦</span>
+              <span className="font-['Poppins'] font-semibold text-[#d9e3f7] tracking-wider text-xs md:text-sm">MEET ध्वनि AI</span>
+            </div>
+            <EyesComponent />
           </div>
           {/* Main Heading */}
           <h1 className="hero-animate font-['Sora'] font-bold text-[32px] sm:text-[40px] md:text-[48px] lg:text-[42px] xl:text-[48px] leading-[1.1] text-[#d9e3f7] tracking-tight text-left">
