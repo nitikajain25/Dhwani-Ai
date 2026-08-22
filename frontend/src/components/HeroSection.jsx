@@ -4,7 +4,7 @@ import MainframeHeroWidget from './MainframeHeroWidget';
 export default function HeroSection({ heroRef }) {
   return (
     <section id="hero" ref={heroRef} className="w-full flex items-center justify-center px-6 md:px-16 pt-3 md:pt-4 pb-12 min-h-fit relative max-w-[1440px] mx-auto">
-      <div className="flex flex-col lg:flex-row items-center justify-between w-full h-full gap-12 lg:gap-16 pt-16 md:pt-32">
+      <div className="flex flex-col lg:flex-row items-center justify-between w-full h-full gap-12 lg:gap-16 pt-8 md:pt-20">
         {/* LEFT COLUMN (50%) */}
         <div className="w-full lg:w-[48%] flex flex-col items-start space-y-3 z-10">
           {/* Badge */}

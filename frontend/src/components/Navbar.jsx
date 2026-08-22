@@ -1,7 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExpandableTabs } from './ui/expandable-tabs';
 
 export default function Navbar({ mobileMenuOpen, setMobileMenuOpen }) {
+  const [activeTab, setActiveTab] = useState('#hero');
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setActiveTab(window.location.hash || '#hero');
+    };
+    handleHashChange(); // Set initial
+    window.addEventListener('hashchange', handleHashChange);
+
+    const sectionIds = ['hero', 'voice-interaction', 'response-queue', 'performance-metrics'];
+    
+    // Create an intersection observer with a precise detection zone (a 1% band located 30% from the top)
+    const observerOptions = {
+      root: null,
+      rootMargin: '-30% 0px -69% 0px', 
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveTab(`#${entry.target.id}`);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      observer.disconnect();
+    };
+  }, []);
+
+  const navLinks = [
+    { name: 'Intelligence', href: '#hero' },
+    { name: 'Voice Synthesis', href: '#voice-interaction' },
+    { name: 'HH Goa 2026', href: '#response-queue' },
+    { name: 'Latency', href: '#performance-metrics' },
+  ];
+
+  // Find the index of the active tab for the mobile ExpandableTabs
+  const activeTabIndex = navLinks.findIndex(link => link.href === activeTab);
+
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-2 w-full md:w-[92%] md:mx-auto md:mt-4 md:rounded-[20px] bg-[#16202f]/40 backdrop-blur-xl border-[0.5px] border-[#a2eeff]/20 shadow-[0px_0px_15px_rgba(37,217,245,0.1)] md:px-8 md:py-3">
@@ -16,18 +64,20 @@ export default function Navbar({ mobileMenuOpen, setMobileMenuOpen }) {
 
         {/* Desktop Nav Links */}
         <div className="hidden md:flex items-center space-x-8">
-          <a className="text-[#a2eeff] font-bold border-b-2 border-[#a2eeff] pb-1 font-['JetBrains_Mono'] glow-text text-[14px]" href="#hero">
-            Intelligence
-          </a>
-          <a className="text-[#bbc9cd] hover:text-[#a2eeff] transition-colors font-['JetBrains_Mono'] text-[14px]" href="#voice-interaction">
-            Voice Synthesis
-          </a>
-          <a className="text-[#bbc9cd] hover:text-[#a2eeff] transition-colors font-['JetBrains_Mono'] text-[14px]" href="#response-queue">
-            HH Goa 2026
-          </a>
-          <a className="text-[#bbc9cd] hover:text-[#a2eeff] transition-colors font-['JetBrains_Mono'] text-[14px]" href="#performance-metrics">
-            Latency
-          </a>
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              className={`font-['JetBrains_Mono'] text-[14px] transition-colors pb-1 ${
+                activeTab === link.href
+                  ? "text-[#a2eeff] font-bold border-b-2 border-[#a2eeff] glow-text"
+                  : "text-[#bbc9cd] hover:text-[#a2eeff]"
+              }`}
+              href={link.href}
+              onClick={() => setActiveTab(link.href)}
+            >
+              {link.name}
+            </a>
+          ))}
         </div>
 
         {/* Right Actions */}
@@ -65,6 +115,7 @@ export default function Navbar({ mobileMenuOpen, setMobileMenuOpen }) {
             { title: "HH Goa", icon: "bi-layers", href: "#response-queue" },
             { title: "Latency", icon: "bi-speedometer2", href: "#performance-metrics" },
           ]}
+          activeTab={activeTabIndex !== -1 ? activeTabIndex : 0}
           className="bg-[#16202f]/80 backdrop-blur-xl border-[#a2eeff]/20 w-auto justify-between px-2"
           activeColor="text-[#25d9f5]"
         />

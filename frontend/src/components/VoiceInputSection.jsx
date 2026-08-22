@@ -7,7 +7,7 @@ export default function VoiceInputSection({ voiceRef }) {
   const [voiceDetected, setVoiceDetected] = useState(false);
 
   return (
-    <section id="voice-interaction" ref={voiceRef} className="relative w-full min-h-fit lg:h-screen lg:max-h-screen flex flex-col items-center justify-center overflow-hidden py-8 md:py-16 bg-gradient-to-b from-[#06111F] to-[#081525]">
+    <section id="voice-interaction" ref={voiceRef} className="snap-start snap-always relative w-full min-h-fit lg:h-screen lg:max-h-screen flex flex-col items-center justify-center overflow-hidden py-8 md:py-16 bg-gradient-to-b from-[#06111F] to-[#081525]">
       <div className="relative z-10 flex flex-col items-center w-full max-w-4xl mx-auto px-6 text-center space-y-3.5">
         {/* Header */}
         <div className="flex flex-col items-center space-y-1">
