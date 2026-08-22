@@ -16,6 +16,20 @@ export default function DhwaniAI() {
   const queueRef = useRef(null);
   const metricsRef = useRef(null);
 
+  const [responses, setResponses] = useState([]);
+  const [latestTelemetry, setLatestTelemetry] = useState(null);
+
+  const startNewRequest = () => {
+    setLatestTelemetry(null);
+  };
+
+  const addResponse = (response) => {
+    setResponses((prev) => [response, ...prev]);
+    if (response.telemetry) {
+      setLatestTelemetry(response.telemetry);
+    }
+  };
+
   useEffect(() => {
     // GSAP Entrance Animations
     const ctx = gsap.context(() => {
@@ -44,13 +58,13 @@ export default function DhwaniAI() {
           <HeroSection heroRef={heroRef} />
 
           {/* Section 2: Voice Input Section */}
-          <VoiceInputSection voiceRef={voiceRef} />
+          <VoiceInputSection voiceRef={voiceRef} onResponse={addResponse} onStartRequest={startNewRequest} />
 
           {/* Section 3: Response Queue Section */}
-          <ResponseQueueSection queueRef={queueRef} />
+          <ResponseQueueSection queueRef={queueRef} responses={responses} />
 
           {/* Section 4: Latency Dashboard */}
-          <LatencyDashboard metricsRef={metricsRef} />
+          <LatencyDashboard metricsRef={metricsRef} telemetry={latestTelemetry} />
 
           {/* Section 5: Footer */}
           <Footer />

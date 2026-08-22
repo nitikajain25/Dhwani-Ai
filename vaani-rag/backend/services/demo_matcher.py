@@ -1,6 +1,6 @@
-﻿import re
+import re
 import difflib
-from backend.data.demo_questions import DEMO_QA
+from backend.data.demo_questions import DEMO_QUESTIONS
 
 def normalize_text(text: str) -> str:
     # Remove non-alphanumeric (keep spaces) and lowercase
@@ -20,7 +20,7 @@ def match_demo_question(transcript: str, threshold: float = 0.6):
     best_match = None
     best_score = 0.0
     
-    for item in DEMO_QA:
+    for item in DEMO_QUESTIONS:
         norm_q = normalize_text(item["question"])
         
         # We can use difflib for string similarity
