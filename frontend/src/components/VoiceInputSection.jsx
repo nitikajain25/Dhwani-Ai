@@ -1,10 +1,109 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { VoicePoweredOrb } from './ui/voice-powered-orb';
 import { Button } from './ui/button';
 
-export default function VoiceInputSection({ voiceRef }) {
+export default function VoiceInputSection({ voiceRef, onResponse, onStartRequest }) {
   const [isRecording, setIsRecording] = useState(false);
   const [voiceDetected, setVoiceDetected] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState(null);
+  
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+
+  const startRecording = async () => {
+    setError(null);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        // Stop all tracks
+        stream.getTracks().forEach(track => track.stop());
+        await processAudio(audioBlob);
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (err) {
+      console.error("Microphone error:", err);
+      setError("Microphone access denied or unavailable.");
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
+  };
+
+  const toggleRecording = () => {
+    if (isProcessing) return;
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  };
+
+  const processAudio = async (audioBlob) => {
+    setIsProcessing(true);
+    setError(null);
+    if (onStartRequest) onStartRequest();
+    
+    try {
+      const formData = new FormData();
+      formData.append('file', audioBlob, 'recording.webm');
+      
+      const response = await fetch('/api/demo/voice', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      let metadata = null;
+      const metadataHeader = response.headers.get("X-RAG-Metadata");
+      if (metadataHeader) {
+        metadata = JSON.parse(metadataHeader);
+      }
+      
+      if (!response.ok) {
+        if (metadata && metadata.error) {
+           setError(metadata.error);
+        } else {
+           setError(`Server returned ${response.status}`);
+        }
+        setIsProcessing(false);
+        return;
+      }
+      
+      // Play audio response
+      const audioBuffer = await response.arrayBuffer();
+      const audioBlobResp = new Blob([audioBuffer], { type: 'audio/wav' });
+      const audioUrl = URL.createObjectURL(audioBlobResp);
+      const audio = new Audio(audioUrl);
+      audio.play();
+      
+      if (metadata) {
+        onResponse(metadata);
+      }
+      
+    } catch (err) {
+      console.error("API error:", err);
+      setError("Failed to reach the backend server.");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
     <section id="voice-interaction" ref={voiceRef} className="snap-start snap-always relative w-full min-h-fit lg:h-screen lg:max-h-screen flex flex-col items-center justify-center overflow-hidden py-8 md:py-16 bg-gradient-to-b from-[#06111F] to-[#081525]">
@@ -29,7 +128,7 @@ export default function VoiceInputSection({ voiceRef }) {
           
           <VoicePoweredOrb
             enableVoiceControl={isRecording}
-            onVoiceDetected={setIsRecording ? setVoiceDetected : undefined}
+            onVoiceDetected={setVoiceDetected}
             className="rounded-full overflow-hidden z-10 border border-white/5"
             hue={190} // Set custom cyan hue
             voiceSensitivity={1.8}
@@ -40,18 +139,23 @@ export default function VoiceInputSection({ voiceRef }) {
 
         {/* Control Button */}
         <Button
-          onClick={() => setIsRecording(!isRecording)}
+          onClick={toggleRecording}
+          disabled={isProcessing}
           variant={isRecording ? "destructive" : "default"}
           size="sm"
           className={`px-6 py-2 rounded-full font-['JetBrains_Mono'] tracking-widest text-[11px] transition-all cursor-pointer ${
             isRecording 
               ? 'bg-red-600 hover:bg-red-700 text-white shadow-[0_0_15px_rgba(220,38,38,0.4)] border border-red-500/50' 
               : 'bg-[#25d9f5]/10 border border-[#25d9f5] text-[#25d9f5] hover:bg-[#25d9f5] hover:text-[#00363e] shadow-[0_0_15px_rgba(37,217,245,0.2)]'
-          }`}
+          } ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isRecording ? (
             <span className="flex items-center gap-2">
               <i className="bi bi-mic-mute-fill"></i> STOP LISTENING
+            </span>
+          ) : isProcessing ? (
+            <span className="flex items-center gap-2">
+              <i className="bi bi-hourglass-split"></i> PROCESSING...
             </span>
           ) : (
             <span className="flex items-center gap-2">
@@ -109,6 +213,13 @@ export default function VoiceInputSection({ voiceRef }) {
             <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]">NLP</span>
           </div>
         </div>
+
+        {/* Error Display */}
+        {error && (
+          <div className="mt-4 px-4 py-2 bg-red-900/50 border border-red-500/50 rounded-lg text-red-200 text-sm font-['JetBrains_Mono']">
+            {error}
+          </div>
+        )}
       </div>
     </section>
   );

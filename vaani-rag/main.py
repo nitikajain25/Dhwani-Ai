@@ -161,10 +161,10 @@ import json
 import random
 
 def get_demo_benchmark_telemetry():
-    ext = random.randint(65, 85)
-    mat = random.randint(8, 15)
-    ans = random.randint(8, 15)
-    gen = random.randint(65, 85)
+    ext = random.randint(120, 150)
+    mat = random.randint(20, 35)
+    ans = random.randint(20, 35)
+    gen = random.randint(80, 110)
     overall = ext + mat + ans + gen
     return {
         "is_simulated": True,
@@ -249,18 +249,36 @@ async def demo_voice(file: UploadFile = File(...)):
     match = match_demo_question(transcript)
     match_ms = (time.perf_counter() - match_t0) * 1000.0
     
+    answer_ms = 0.0
+    gemini_ms = 0.0
+    mode = "demo"
+    question_id = None
+    matched_question = None
+
     if not match:
-        return JSONResponse(status_code=400, content={
-            "success": False,
-            "mode": "demo",
-            "error": "QUESTION_NOT_IN_DEMO_SET",
-            "transcript": transcript,
-            "answer": None
-        })
-        
-    answer_t0 = time.perf_counter()
-    answer = match["answer"]
-    answer_ms = (time.perf_counter() - answer_t0) * 1000.0
+        mode = "gemini_fallback"
+        # EXISTING GEMINI FALLBACK
+        t_gemini = time.perf_counter()
+        try:
+            from google import genai
+            import os
+            api_key = os.getenv("GEMINI_API_KEY")
+            model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+            client = genai.Client(api_key=api_key)
+            gemini_response = client.models.generate_content(
+                model=model,
+                contents=f"Answer concisely: {transcript}"
+            )
+            answer = gemini_response.text or "I could not generate a response."
+        except Exception as e:
+            answer = "Sorry, I encountered an error connecting to Gemini."
+        gemini_ms = (time.perf_counter() - t_gemini) * 1000.0
+    else:
+        answer_t0 = time.perf_counter()
+        answer = match["answer"]
+        answer_ms = (time.perf_counter() - answer_t0) * 1000.0
+        question_id = match["id"]
+        matched_question = match["question"]
     
     # 3. TTS
     audio_out, tts_ms = sarvam.synthesize(text=answer, language_code="en-IN")
@@ -269,16 +287,17 @@ async def demo_voice(file: UploadFile = File(...)):
     
     metadata = {
         "success": True,
-        "mode": "demo",
-        "question_id": match["id"],
+        "mode": mode,
+        "question_id": question_id,
         "transcript": transcript,
-        "matched_question": match["question"],
+        "matched_question": matched_question,
         "answer": answer,
         "telemetry": {
             "actual": {
                 "stt_ms": stt_ms,
                 "matching_ms": match_ms,
                 "answer_ms": answer_ms,
+                "gemini_ms": gemini_ms,
                 "tts_ms": tts_ms,
                 "total_ms": total_ms
             },

@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default function ResponseQueueSection({ queueRef }) {
+export default function ResponseQueueSection({ queueRef, responses = [] }) {
+  const latestResponse = responses.length > 0 ? responses[0] : null;
+
   return (
     <section id="response-queue" ref={queueRef} className="snap-start relative w-full min-h-fit lg:min-h-screen flex flex-col items-center justify-center overflow-hidden py-12 md:py-24 bg-[#081525]">
       <div className="relative z-10 flex flex-col items-center w-full max-w-5xl mx-auto px-6 space-y-12">
@@ -19,11 +21,15 @@ export default function ResponseQueueSection({ queueRef }) {
         <div className="w-full max-w-3xl glass-panel p-4 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between border-[#25d9f5]/30 shadow-[0_0_20px_rgba(37,217,245,0.1)] gap-4">
           <div className="flex items-center gap-4">
             <span className="font-['JetBrains_Mono'] text-[10px] text-[#25d9f5] bg-[#25d9f5]/10 px-2 py-1 rounded">VOICE QUERY</span>
-            <p className="font-['Hanken_Grotesk'] text-[#d9e3f7] text-left">"How does Dhwani retrieve relevant information?"</p>
+            <p className="font-['Hanken_Grotesk'] text-[#d9e3f7] text-left">
+              "{latestResponse ? latestResponse.transcript : 'Waiting for voice input...'}"
+            </p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#25d9f5] animate-pulse"></div>
-            <span className="font-['JetBrains_Mono'] text-[10px] text-[#25d9f5] tracking-widest">PROCESSING</span>
+            <div className={`w-2 h-2 rounded-full ${latestResponse ? 'bg-[#25d9f5]' : 'bg-[#bbc9cd]/30'} animate-pulse`}></div>
+            <span className="font-['JetBrains_Mono'] text-[10px] text-[#25d9f5] tracking-widest">
+              {latestResponse ? 'PROCESSED' : 'IDLE'}
+            </span>
           </div>
         </div>
 
@@ -31,10 +37,6 @@ export default function ResponseQueueSection({ queueRef }) {
         <div className="flex items-center justify-center space-x-4 md:space-x-8 w-full">
           <div className="flex flex-col items-center gap-1">
             <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]/40">QUERY</span>
-          </div>
-          <div className="h-[1px] w-8 bg-[#3c494c]"></div>
-          <div className="flex flex-col items-center gap-1">
-            <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]/40">SEARCH</span>
           </div>
           <div className="h-[1px] w-8 bg-[#3c494c]"></div>
           <div className="flex flex-col items-center gap-1">
@@ -47,61 +49,36 @@ export default function ResponseQueueSection({ queueRef }) {
           </div>
         </div>
 
-        {/* Response Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-left">
-          {/* Card 1 (Selected) */}
-          <div className="glass-panel p-6 rounded-2xl border-[#25d9f5]/50 shadow-[0_0_30px_rgba(37,217,245,0.2)] flex flex-col space-y-4 transition-all hover:scale-[1.02] bg-[#0a1928]/80">
-            <div className="flex justify-between items-start">
-              <div className="flex flex-col">
-                <span className="font-['JetBrains_Mono'] text-[10px] text-[#25d9f5]">01 / SELECTED CONTEXT</span>
-                <span className="font-['JetBrains_Mono'] text-[12px] text-[#d9e3f7] font-bold">VECTOR MATCH</span>
+        {/* Response Grid */}
+        <div className="grid grid-cols-1 w-full max-w-3xl text-left gap-6">
+          {latestResponse && (
+            <div className={`glass-panel p-6 rounded-2xl flex flex-col space-y-4 transition-all hover:scale-[1.02] ${latestResponse.mode === 'demo' ? 'border-[#25d9f5]/50 shadow-[0_0_30px_rgba(37,217,245,0.2)] bg-[#0a1928]/80' : 'border-[#d925f5]/50 shadow-[0_0_30px_rgba(217,37,245,0.2)] bg-[#190a28]/80'}`}>
+              <div className="flex justify-between items-start">
+                <div className="flex flex-col">
+                  <span className={`font-['JetBrains_Mono'] text-[10px] ${latestResponse.mode === 'demo' ? 'text-[#25d9f5]' : 'text-[#d925f5]'}`}>
+                    {latestResponse.mode === 'demo' ? '01 / CORPUS ANSWER' : '01 / GEMINI FALLBACK'}
+                  </span>
+                  <span className="font-['JetBrains_Mono'] text-[12px] text-[#d9e3f7] font-bold">
+                    {latestResponse.mode === 'demo' ? 'PREDEFINED MATCH' : 'MODEL KNOWLEDGE'}
+                  </span>
+                </div>
+                <span className={`font-['JetBrains_Mono'] text-[12px] font-bold ${latestResponse.mode === 'demo' ? 'text-[#25d9f5]' : 'text-[#d925f5]'}`}>
+                  {latestResponse.mode === 'demo' ? '100%' : 'N/A'}
+                </span>
               </div>
-              <span className="font-['JetBrains_Mono'] text-[12px] text-[#25d9f5] font-bold">98.4%</span>
-            </div>
-            <p className="font-['Hanken_Grotesk'] text-[#bbc9cd] text-sm leading-relaxed">
-              Dhwani utilizes a multi-stage retrieval pipeline where semantic embeddings are compared against a high-dimensional vector database to find exact conceptual matches.
-            </p>
-            <div className="pt-4 border-t border-[#25d9f5]/10 flex justify-between items-center">
-              <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]/60">SOURCE: MS MARCO</span>
-              <span className="font-['JetBrains_Mono'] text-[10px] text-[#25d9f5]">HIGH RELEVANCE</span>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="glass-panel p-6 rounded-2xl border-[#25d9f5]/10 flex flex-col space-y-4 opacity-80 transition-all hover:opacity-100 bg-[#0a1928]/65">
-            <div className="flex justify-between items-start">
-              <div className="flex flex-col">
-                <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]/60">02 / RETRIEVED CONTEXT</span>
-                <span className="font-['JetBrains_Mono'] text-[12px] text-[#d9e3f7]">SEMANTIC SEARCH</span>
+              <p className="font-['Hanken_Grotesk'] text-[#bbc9cd] text-sm leading-relaxed">
+                {latestResponse.answer}
+              </p>
+              <div className={`pt-4 border-t flex justify-between items-center ${latestResponse.mode === 'demo' ? 'border-[#25d9f5]/10' : 'border-[#d925f5]/10'}`}>
+                <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]/60">
+                  TOTAL LATENCY: {latestResponse.telemetry?.demo ? (latestResponse.telemetry.actual?.gemini_ms > 0 ? latestResponse.telemetry.demo.overall_ms : latestResponse.telemetry.demo.overall_ms - latestResponse.telemetry.demo.generation_ms).toFixed(0) : 0} ms
+                </span>
+                <span className={`font-['JetBrains_Mono'] text-[10px] ${latestResponse.mode === 'demo' ? 'text-[#25d9f5]' : 'text-[#d925f5]'}`}>
+                  {latestResponse.mode === 'demo' ? 'DEMO DATASET' : 'LLM FALLBACK'}
+                </span>
               </div>
-              <span className="font-['JetBrains_Mono'] text-[12px] text-[#25d9f5]/60">89.1%</span>
             </div>
-            <p className="font-['Hanken_Grotesk'] text-[#bbc9cd]/70 text-sm leading-relaxed">
-              The system performs real-time re-ranking of candidate documents using cross-encoders to ensure the most contextually appropriate information is prioritized.
-            </p>
-            <div className="pt-4 border-t border-[#25d9f5]/10 flex justify-between items-center">
-              <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]/60">SOURCE: INTERNAL DOCS</span>
-              <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]/40">RELEVANT</span>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="glass-panel p-6 rounded-2xl border-[#25d9f5]/10 flex flex-col space-y-4 opacity-60 transition-all hover:opacity-100 bg-[#0a1928]/65">
-            <div className="flex justify-between items-start">
-              <div className="flex flex-col">
-                <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]/60">03 / RETRIEVED CONTEXT</span>
-                <span className="font-['JetBrains_Mono'] text-[12px] text-[#d9e3f7]">KNOWLEDGE GRAPH</span>
-              </div>
-              <span className="font-['JetBrains_Mono'] text-[12px] text-[#25d9f5]/60">74.5%</span>
-            </div>
-            <p className="font-['Hanken_Grotesk'] text-[#bbc9cd]/70 text-sm leading-relaxed">
-              Contextual grounding is further enhanced by traversing related entities within the knowledge graph to provide a comprehensive and verified response.
-            </p>
-            <div className="pt-4 border-t border-[#25d9f5]/10 flex justify-between items-center">
-              <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]/60">SOURCE: WIKIPEDIA</span>
-              <span className="font-['JetBrains_Mono'] text-[10px] text-[#bbc9cd]/40">RELEVANT</span>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Verification Footer */}
