@@ -11,8 +11,8 @@ def split_sentences(text: str) -> List[str]:
     """
     if not text:
         return []
-    # Split on sentence terminals followed by whitespace or end of string
-    sentences = re.split(r"(?<=[.!?।॥])\s+", text)
+    # Split on sentence terminals optionally followed by whitespace
+    sentences = re.split(r"(?<=[.!?।॥])\s*", text)
     return [s.strip() for s in sentences if s.strip()]
 
 def chunk_sentence(passage: Passage, target_size: int = 384, min_size: int = 64) -> List[Chunk]:
@@ -54,7 +54,7 @@ def chunk_sentence(passage: Passage, target_size: int = 384, min_size: int = 64)
     for idx, chunk_txt in enumerate(chunks_text):
         t_count = count_tokens(chunk_txt)
         chunk_hash = hashlib.sha256(chunk_txt.encode("utf-8")).hexdigest()
-        chunk_id = f"{passage.language}_{chunk_hash}"
+        chunk_id = f"{passage.language}_sentence_{chunk_hash}"
         
         chunks.append(
             Chunk(

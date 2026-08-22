@@ -1,2 +1,2 @@
-# VaaniRAG Offline Ingestion Pipeline Module
+# DhawaniRAG Offline Ingestion Pipeline Module
 __version__ = "1.0.0"

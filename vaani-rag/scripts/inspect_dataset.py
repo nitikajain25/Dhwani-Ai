@@ -1,3 +1,5 @@
+import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 import sys
 from typing import List
 from pathlib import Path
@@ -53,11 +55,21 @@ def inspect_schema(max_inspect: int = 100):
                                 print(f"      - inner keys: {list(val[0].keys())}")
             print("============================================================\n")
 
-        # 2. Schema examples
+        # 2. Schema examples and passage alignment
         if rows_inspected < 3:
             target = row.get("target_lang", "")
             source = row.get("source_lang", "")
             print(f"Example {rows_inspected + 1}: target_lang='{target}', source_lang='{source}'")
+            print("  Passage Alignment:")
+            passages = list(extract_passages_from_row(row, idx))
+            eng_texts = [p.text for p in passages if p.language == "en"]
+            trans_texts = [p.text for p in passages if p.language in ("hi", "mr")]
+            for p_idx in range(max(len(eng_texts), len(trans_texts))):
+                en_txt = eng_texts[p_idx] if p_idx < len(eng_texts) else "[None]"
+                tr_txt = trans_texts[p_idx] if p_idx < len(trans_texts) else "[None]"
+                print(f"    - Pair {p_idx}:")
+                print(f"      English   : {en_txt[:80]}...")
+                print(f"      Translated: {tr_txt[:80]}...")
 
         target_lang_raw = str(row.get("target_lang", ""))
         if target_lang_raw.startswith("hi_"):

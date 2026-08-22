@@ -71,7 +71,7 @@ def chunk_fixed_overlap(
             
         t_count = count_tokens(chunk_txt_clean)
         chunk_hash = hashlib.sha256(chunk_txt_clean.encode("utf-8")).hexdigest()
-        chunk_id = f"{passage.language}_{chunk_hash}"
+        chunk_id = f"{passage.language}_fixed_overlap_{chunk_hash}"
 
         chunks.append(
             Chunk(

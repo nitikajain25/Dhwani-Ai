@@ -25,6 +25,7 @@ def chunk_adaptive(
         chunks = chunk_original(passage)
         for c in chunks:
             c.strategy = "adaptive"
+            c.chunk_id = f"{c.language}_adaptive_{c.content_hash}"
         return chunks
         
     # Rule 2: Medium Passage -> Sentence-Aware Grouping (no overlap)
@@ -32,6 +33,7 @@ def chunk_adaptive(
         chunks = chunk_sentence(passage, target_size=256, min_size=64)
         for c in chunks:
             c.strategy = "adaptive"
+            c.chunk_id = f"{c.language}_adaptive_{c.content_hash}"
         return chunks
         
     # Rule 3: Long Passage -> Fixed overlap chunking (controlled overlap)
@@ -39,6 +41,7 @@ def chunk_adaptive(
         chunks = chunk_fixed_overlap(passage, chunk_size=384, chunk_overlap=64)
         for c in chunks:
             c.strategy = "adaptive"
+            c.chunk_id = f"{c.language}_adaptive_{c.content_hash}"
         return chunks
         
     # Rule 4: Very Long Passage -> Fallback Fixed overlap
@@ -47,4 +50,5 @@ def chunk_adaptive(
             
         for c in chunks:
             c.strategy = "adaptive"
+            c.chunk_id = f"{c.language}_adaptive_{c.content_hash}"
         return chunks

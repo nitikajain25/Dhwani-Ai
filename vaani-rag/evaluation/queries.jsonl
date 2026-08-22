@@ -1,0 +1,30 @@
+{"query_id":"stage1_en_001","language":"en","query":"What is photosynthesis?","expected_terms":["photosynthesis","sunlight","glucose","carbon dioxide","water"]}
+{"query_id":"stage1_en_002","language":"en","query":"How do plants produce glucose?","expected_terms":["plants","glucose","photosynthesis","sunlight"]}
+{"query_id":"stage1_en_003","language":"en","query":"What happens to oxygen during photosynthesis?","expected_terms":["photosynthesis","oxygen","plants"]}
+{"query_id":"stage1_en_004","language":"en","query":"How does the human body use oxygen?","expected_terms":["oxygen","lungs","blood","cells","hemoglobin"]}
+{"query_id":"stage1_en_005","language":"en","query":"How is oxygen transported from the lungs to body cells?","expected_terms":["oxygen","lungs","blood","cells","red blood cells"]}
+{"query_id":"stage1_en_006","language":"en","query":"What services does the VA Clinic of Fort Polk provide?","expected_terms":["VA Clinic","Fort Polk","Primary Care","veterans"]}
+{"query_id":"stage1_en_007","language":"en","query":"What is the driving distance from Pineville, Louisiana to Alexandria International Airport?","expected_terms":["Pineville","Alexandria International Airport","AEX","9 miles","14 kilometers"]}
+{"query_id":"stage1_en_008","language":"en","query":"What is Morningstar's document about?","expected_terms":["Morningstar","document","formulas","procedures"]}
+{"query_id":"stage1_en_009","language":"en","query":"Where can information about purchasing the book and other industrial minerals be found?","expected_terms":["industrial minerals","purchasing","book","copyright"]}
+{"query_id":"stage1_en_010","language":"en","query":"What information is included in the HIPAA implementation guide?","expected_terms":["HIPAA","implementation guide","data elements","code sets","835"]}
+{"query_id":"stage1_hi_001","language":"hi","query":"प्रकाश संश्लेषण क्या है?","expected_terms":["प्रकाश संश्लेषण","सूर्य","ग्लूकोज","कार्बन डाइऑक्साइड","पानी"]}
+{"query_id":"stage1_hi_002","language":"hi","query":"पौधे ग्लूकोज कैसे बनाते हैं?","expected_terms":["पौधे","ग्लूकोज","प्रकाश संश्लेषण","सूर्य"]}
+{"query_id":"stage1_hi_003","language":"hi","query":"प्रकाश संश्लेषण में ऑक्सीजन का क्या होता है?","expected_terms":["प्रकाश संश्लेषण","ऑक्सीजन","पौधे"]}
+{"query_id":"stage1_hi_004","language":"hi","query":"मानव शरीर ऑक्सीजन का उपयोग कैसे करता है?","expected_terms":["ऑक्सीजन","फेफड़े","रक्त","कोशिकाएं"]}
+{"query_id":"stage1_hi_005","language":"hi","query":"फेफड़ों से ऑक्सीजन शरीर की कोशिकाओं तक कैसे पहुंचती है?","expected_terms":["फेफड़े","ऑक्सीजन","रक्त","कोशिकाएं","लाल रक्त कोशिकाएं"]}
+{"query_id":"stage1_hi_006","language":"hi","query":"फ्लोएम क्या है?","expected_terms":["फ्लोएम","पौधे","ऊतक","पत्तियां"]}
+{"query_id":"stage1_hi_007","language":"hi","query":"फ्लोएम पौधे में क्या काम करता है?","expected_terms":["फ्लोएम","पौधे","पत्तियां","जड़ें","खनिज"]}
+{"query_id":"stage1_hi_008","language":"hi","query":"प्रकाश संश्लेषण के उत्पाद कौन से हैं?","expected_terms":["प्रकाश संश्लेषण","ग्लूकोज","ऑक्सीजन"]}
+{"query_id":"stage1_hi_009","language":"hi","query":"ऑक्सीजन रक्त के माध्यम से शरीर में कैसे पहुंचती है?","expected_terms":["ऑक्सीजन","रक्त","हीमोग्लोबिन","फेफड़े"]}
+{"query_id":"stage1_hi_010","language":"hi","query":"पौधों में फ्लोएम किस प्रकार का ऊतक है?","expected_terms":["फ्लोएम","पौधे","संवाहक ऊतक"]}
+{"query_id":"stage1_mr_001","language":"mr","query":"प्रकाशसंश्लेषण म्हणजे काय?","expected_terms":["प्रकाशसंश्लेषण","सूर्यप्रकाश","ग्लुकोज","कार्बन डायऑक्साइड","पाणी"]}
+{"query_id":"stage1_mr_002","language":"mr","query":"वनस्पती ग्लुकोज कसा तयार करतात?","expected_terms":["वनस्पती","ग्लुकोज","प्रकाशसंश्लेषण","सूर्यप्रकाश"]}
+{"query_id":"stage1_mr_003","language":"mr","query":"प्रकाशसंश्लेषणामध्ये ऑक्सिजनचे काय होते?","expected_terms":["प्रकाशसंश्लेषण","ऑक्सिजन","वनस्पती"]}
+{"query_id":"stage1_mr_004","language":"mr","query":"मानवी शरीर ऑक्सिजनचा उपयोग कसा करते?","expected_terms":["ऑक्सिजन","फुफ्फुसे","रक्त","पेशी"]}
+{"query_id":"stage1_mr_005","language":"mr","query":"फुफ्फुसांमधून ऑक्सिजन शरीराच्या पेशींपर्यंत कसा पोहोचतो?","expected_terms":["फुफ्फुसे","ऑक्सिजन","रक्त","पेशी","लाल रक्तपेशी"]}
+{"query_id":"stage1_mr_006","language":"mr","query":"फ्लोएम म्हणजे काय?","expected_terms":["फ्लोएम","पादप","ऊतक","पाने"]}
+{"query_id":"stage1_mr_007","language":"mr","query":"फ्लोएम वनस्पतीमध्ये काय कार्य करते?","expected_terms":["फ्लोएम","वनस्पती","पाने","मुळे","खनिज"]}
+{"query_id":"stage1_mr_008","language":"mr","query":"प्रकाशसंश्लेषणाची उत्पादने कोणती आहेत?","expected_terms":["प्रकाशसंश्लेषण","ग्लुकोज","ऑक्सिजन"]}
+{"query_id":"stage1_mr_009","language":"mr","query":"ऑक्सिजन रक्ताद्वारे शरीरात कसा पोहोचवला जातो?","expected_terms":["ऑक्सिजन","रक्त","हिमोग्लोबिन","फुफ्फुसे"]}
+{"query_id":"stage1_mr_010","language":"mr","query":"वनस्पतींमध्ये फ्लोएम कोणत्या प्रकारचे ऊतक आहे?","expected_terms":["फ्लोएम","वनस्पती","संवाहक ऊतक"]}

@@ -53,10 +53,8 @@ def extract_passages_from_row(
                 f"Eng: {len_eng}, Trans: {len_trans}, Sel: {len_sel}."
             )
             
-        # Use minimum to avoid out-of-bounds mapping errors when lists differ in length
-        num_passages = min(len_eng, len_trans)
-        if num_passages == 0:
-            num_passages = max(len_eng, len_trans)
+        # Use max to extract all available English/translated items without out-of-bounds mapping errors
+        num_passages = max(len_eng, len_trans, len_sel)
             
         for i in range(num_passages):
             eng_text = english_list[i] if i < len_eng else ""
